@@ -1,5 +1,6 @@
 import 'package:asses1/api.dart';
 import 'package:asses1/home.dart';
+import 'package:asses1/loginpage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -82,13 +83,13 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
+    return const Scaffold(
       // appBar: AppBar(
       //   // Here we take the value from the MyHomePage object that was created by
       //   // the App.build method, and use it to set our appbar title.
       //   title: Text(widget.title),
       // ),
-      body: Home(),
+      body: LoginPage(),
     );
   }
 }
