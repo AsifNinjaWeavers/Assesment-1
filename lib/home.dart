@@ -1,18 +1,51 @@
+// ignore_for_file: must_be_immutable
+
+import 'package:asses1/forgetpage.dart';
+import 'package:asses1/loginpage.dart';
 import 'package:asses1/view.dart';
 import 'package:flutter/material.dart';
 import 'api.dart';
 
 class Home extends StatelessWidget {
+  // ignore: unnecessary_new
   Api a = new Api();
   Home({super.key});
 
   @override
-  Widget build(Object context) {
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Home', style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => LoginPage(),
+                  ));
+            },
+            icon: Icon(
+              Icons.login,
+              color: Colors.black,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => ForgetPage(),
+                  ));
+            },
+            icon: Icon(
+              Icons.login,
+              color: Colors.black,
+            ),
+          )
+        ],
         // actions: [Text('data')],
       ),
       body: SingleChildScrollView(
@@ -129,9 +162,9 @@ class Home extends StatelessWidget {
                   future: a.getData(),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Container(
-                          height: 1,
-                          width: 5,
+                      return SizedBox(
+                          height: 20,
+                          width: 20,
                           child: const CircularProgressIndicator());
                     } else if (!snapshot.hasData) {
                       return Container(
