@@ -24,10 +24,10 @@ class Home extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => LoginPage(),
+                    builder: (_) => const LoginPage(),
                   ));
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.login,
               color: Colors.black,
             ),
@@ -37,10 +37,10 @@ class Home extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => ForgetPage(),
+                    builder: (_) => const ForgetPage(),
                   ));
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.login,
               color: Colors.black,
             ),
@@ -155,19 +155,19 @@ class Home extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            Container(
+            SizedBox(
               height: 200,
               width: 325,
               child: FutureBuilder(
                   future: a.getData(),
                   builder: (BuildContext context, AsyncSnapshot snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return SizedBox(
+                      return const SizedBox(
                           height: 20,
                           width: 20,
-                          child: const CircularProgressIndicator());
+                          child: CircularProgressIndicator());
                     } else if (!snapshot.hasData) {
-                      return Container(
+                      return const SizedBox(
                         height: 20,
                         width: 40,
                         child: Text('Data Not Exist'),
@@ -241,7 +241,7 @@ class MenuNameWidget extends StatelessWidget {
 class MoreList extends StatelessWidget {
   final String name;
   final String img;
-  MoreList({
+  const MoreList({
     required this.name,
     required this.img,
     Key? key,
@@ -249,40 +249,36 @@ class MoreList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: (() => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => View(img: img),
-                  ),
-                )),
-            child: Container(
-              width: 160.0,
-              height: 150,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage(img), fit: BoxFit.cover),
-                  border: Border.all(color: Colors.white),
-                  borderRadius: const BorderRadius.all(Radius.circular(5))),
-            ),
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: (() => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => View(img: img),
+                ),
+              )),
+          child: Container(
+            width: 160.0,
+            height: 150,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: NetworkImage(img), fit: BoxFit.cover),
+                border: Border.all(color: Colors.white),
+                borderRadius: const BorderRadius.all(Radius.circular(5))),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            height: 30,
-            width: 160,
-            child: Text(
-              name,
-              style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold),
-            ),
-          )
-        ],
-      ),
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          height: 30,
+          width: 160,
+          child: Text(
+            name,
+            style: const TextStyle(
+                color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+          ),
+        )
+      ],
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:asses1/loginpage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class ForgetPage extends StatelessWidget {
@@ -7,11 +6,10 @@ class ForgetPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
         backgroundColor: Colors.white,
         body: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 70),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 70),
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -37,44 +35,31 @@ class ForgetPage extends StatelessWidget {
                   height: 30,
                 ),
                 Container(
-                  color: Color(0xff1f1f1f1),
+                  // ignore: use_full_hex_values_for_flutter_colors
+                  color: const Color(0xff1f1f1f1),
                   child: TextField(
-                    style: TextStyle(color: Color(0xff6085ae)),
+                    style: const TextStyle(color: Color(0xff6085ae)),
                     decoration: InputDecoration(
                         // color: Color(col),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
+                          borderSide: const BorderSide(
                               color: Color.fromARGB(255, 255, 255, 255),
                               width: 3),
                         ),
-                        // labelText: lebel,
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                              BorderSide(color: Color(0xff6085ae), width: 3),
+                          borderSide: const BorderSide(
+                              color: Color(0xff6085ae), width: 3),
                         ),
                         hintText: 'example@gmail.com',
-                        // hintStyle: hintStylecolor:Color(0xff1406c9e),
                         prefixIcon: const Icon(
                           Icons.person_outline,
                           color: Color(0xff6085ae),
                         ),
-                        // fillColor: Colors.yellow,
                         hoverColor: Colors.blue),
                   ),
                 ),
-                // const TextField(
-                //   decoration: InputDecoration(
-                //     border: OutlineInputBorder(),
-                //     // labelText: 'Email',
-                //     hintText: 'example@gmail.com',
-                //     prefixIcon: Icon(
-                //       Icons.person_outline,
-                //     ),
-                //     fillColor: Colors.yellow,
-                //   ),
-                // ),
                 const SizedBox(
                   height: 45,
                 ),
@@ -91,6 +76,7 @@ class ForgetPage extends StatelessWidget {
                     onPressed: () {},
                     child: const Text(
                       'RESET',
+                      // ignore: use_full_hex_values_for_flutter_colors
                       style: TextStyle(color: Color(0xff1b3c4d8), fontSize: 20),
                     ),
                   ),

@@ -1,6 +1,7 @@
+// ignore_for_file: use_full_hex_values_for_flutter_colors
+
 import 'package:asses1/forgetpage.dart';
 import 'package:asses1/home.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -8,12 +9,11 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
         backgroundColor: Colors.white,
         body: SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 70),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 70),
             child: Column(
               children: [
                 Container(
@@ -33,71 +33,23 @@ class LoginPage extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 37),
+                      fontSize: 40),
                 ),
                 const SizedBox(
                   height: 30,
                 ),
-                Container(
-                  color: const Color(0xff1f1f1f1),
-                  child: TextField(
-                    style: TextStyle(color: Color(0xff6085ae)),
-                    decoration: InputDecoration(
-                        // color: Color(col),
-
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 255, 255, 255),
-                              width: 3),
-                        ),
-                        // labelText: lebel,
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                              color: Color(0xff6085ae), width: 3),
-                        ),
-                        hintText: 'example@gmail.com',
-                        prefixIcon: const Icon(
-                          Icons.person_outline,
-                          color: Color(0xff6085ae),
-                        ),
-                        // fillColor: Colors.yellow,
-                        hoverColor: Colors.black),
-                  ),
+                const InputField(
+                  example: 'example@gmail.com',
+                  // lebel: 'Email',
+                  icon: Icons.person_outline,
                 ),
                 const SizedBox(
                   height: 30,
                 ),
-                Container(
-                  color: const Color(0xff1f1f1f1),
-                  child: TextField(
-                    style: const TextStyle(color: Color(0xff6085ae)),
-                    decoration: InputDecoration(
-                        // color: Color(col),
-
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                              color: Color.fromARGB(255, 255, 255, 255),
-                              width: 3),
-                        ),
-                        // labelText: lebel,
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(
-                              color: Color(0xff6085ae), width: 3),
-                        ),
-                        hintText: 'Password',
-
-                        // hintStyle: hintStylecolor:Color(0xff1406c9e),
-                        prefixIcon: const Icon(
-                          Icons.lock,
-                          color: Color(0xff6085ae),
-                        ),
-                        // fillColor: Colors.yellow,
-                        hoverColor: Colors.black),
-                  ),
+                const InputField(
+                  example: 'Password',
+                  // lebel: 'Password',
+                  icon: Icons.lock,
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(210, 0, 0, 0),
@@ -106,7 +58,7 @@ class LoginPage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => ForgetPage(),
+                            builder: (_) => const ForgetPage(),
                           ));
                     }),
                     child: const Text(
@@ -116,7 +68,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 15,
                 ),
                 Container(
                   width: 500,
@@ -152,40 +104,14 @@ class LoginPage extends StatelessWidget {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      height: 38,
-                      width: 178,
-                      decoration: const BoxDecoration(
-                        color: Color(0xff1a4f8b),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
-                      ),
-                      child: TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            'Facebook',
-                            style: TextStyle(
-                                color: Color(0xff1b3c4d8), fontSize: 18),
-                          )),
+                  children: const [
+                    SocialButton(
+                      text: 'Facebook',
+                      col: 0xff1a4f8b,
                     ),
-                    Container(
-                      height: 38,
-                      width: 178,
-                      decoration: const BoxDecoration(
-                        color: Color(0xfff14436),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(5),
-                        ),
-                      ),
-                      child: TextButton(
-                          onPressed: () {},
-                          child: const Text(
-                            'Google',
-                            style: TextStyle(
-                                color: Color(0xff1b3c4d8), fontSize: 18),
-                          )),
+                    SocialButton(
+                      text: 'Google',
+                      col: 0xfff14436,
                     ),
                   ],
                 )
@@ -196,32 +122,77 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-// class SocialButton extends StatelessWidget {
-//   final String text;
-//   final int col;
-//   SocialButton({
-//     required this.text,
-//     required this.col,
-//     Key? key,
-//   }) : super(key: key);
+class SocialButton extends StatelessWidget {
+  final String text;
+  final int col;
+  const SocialButton({
+    required this.text,
+    required this.col,
+    Key? key,
+  }) : super(key: key);
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       height: 38,
-//       width: 178,
-//       decoration: BoxDecoration(
-//         color: Color(col),
-//         borderRadius: BorderRadius.all(
-//           Radius.circular(5),
-//         ),
-//       ),
-//       child: TextButton(
-//           onPressed: () {},
-//           child: Text(
-//             text,
-//             style: TextStyle(color: Color(0xff1b3c4d8), fontSize: 18),
-//           )),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 38,
+      width: 178,
+      decoration: BoxDecoration(
+        color: Color(col),
+        borderRadius: const BorderRadius.all(
+          Radius.circular(5),
+        ),
+      ),
+      child: TextButton(
+          onPressed: () {},
+          child: Text(
+            text,
+            style: const TextStyle(color: Color(0xff1b3c4d8), fontSize: 18),
+          )),
+    );
+  }
+}
+
+class InputField extends StatelessWidget {
+  // final String lebel;
+  final String example;
+  final IconData icon;
+
+  const InputField({
+    required this.example,
+    required this.icon,
+    // required this.lebel,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color(0xff1f1f1f1),
+      child: TextField(
+        style: const TextStyle(color: Color(0xff6085ae)),
+        decoration: InputDecoration(
+            // color: Color(col),
+
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                  color: Color.fromARGB(255, 255, 255, 255), width: 3),
+            ),
+            // labelText: lebel,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(color: Color(0xff6085ae), width: 3),
+            ),
+            hintText: example,
+
+            // hintStyle: hintStylecolor:Color(0xff1406c9e),
+            prefixIcon: Icon(
+              icon,
+              color: const Color(0xff6085ae),
+            ),
+            // fillColor: Colors.yellow,
+            hoverColor: Colors.black),
+      ),
+    );
+  }
+}
