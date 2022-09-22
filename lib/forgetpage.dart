@@ -96,7 +96,7 @@ class ForgetPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => LoginPage(),
+                                builder: (_) => const LoginPage(),
                               ));
                         },
                         child: const Text(

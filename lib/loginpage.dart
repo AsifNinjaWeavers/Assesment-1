@@ -1,12 +1,12 @@
 // ignore_for_file: use_full_hex_values_for_flutter_colors
 
+import 'package:asses1/SocialButton.dart';
 import 'package:asses1/forgetpage.dart';
 import 'package:asses1/home.dart';
-import 'package:asses1/validator.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+  const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -15,42 +15,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   GlobalKey<FormState> formkey = GlobalKey();
   bool isEmailCorrect = false;
-  Validator v = new Validator();
   TextEditingController emailtext = TextEditingController();
-
+  final SnackBar snackBarForLoginError =
+      const SnackBar(content: Text('You Entered wrong Email Or Password'));
   TextEditingController passtext = TextEditingController();
-  String validateEmail(value) {
-    if (value.length == 0) {
-      return "Required";
-    } else {
-      bool emailValid = RegExp(
-              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-          .hasMatch(value);
-      if (!emailValid) {
-        return "Please Enter Correct Email";
-      } else {
-        return '';
-      }
-    }
-  }
-
-  // bool validate() {
-  //   if (formkey.currentState!.validate()) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
-
-  String validatePass(value) {
-    if (value.length == 0) {
-      return "Required";
-    } else if (value.length < 8) {
-      return "Password Should Be Minimum 8 Character";
-    } else {
-      return "";
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,20 +64,6 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-
-                // InputField(
-                //   example: 'example@gmail.com',
-                //   icon: Icons.person_outline,
-                //   txt: emailtext,
-                // ),
-                // const SizedBox(
-                //   height: 40,
-                // ),
-                // InputField(
-                //   example: 'Password',
-                //   icon: Icons.lock,
-                //   txt: passtext,
-                // ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(210, 0, 0, 0),
                   child: TextButton(
@@ -138,23 +92,37 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   child: TextButton(
+                    // onPressed: !formkey.currentState!.validate()
+                    //     ? null
+                    //     : () {
+                    //         checkloging(emailtext.text.toString(),
+                    //                 passtext.text.toString())
+                    //             ? Navigator.push(
+                    //                 context,
+                    //                 MaterialPageRoute(
+                    //                   builder: (_) => Home(
+                    //                     email: 'fake@email.com',
+                    //                   ),
+                    //                 ))
+                    //             : ScaffoldMessenger.of(context)
+                    //                 .showSnackBar(snackBarForLoginError);
+                    //       },
                     onPressed: () {
-                      // final snackBar = SnackBar(
-                      //   content: Text('Please Enter All The Field'),
-                      // );
-                      final snackBar1 = const SnackBar(
-                          content: Text('You Entered wrong Email Or Password'));
-                      checkloging(emailtext.text.toString(),
-                              passtext.text.toString())
-                          ? Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => Home(
-                                  email: 'fake@email.com',
-                                ),
-                              ))
-                          : ScaffoldMessenger.of(context)
-                              .showSnackBar(snackBar1);
+                      !formkey.currentState!.validate()
+                          ? null
+                          : () {
+                              checkloging(emailtext.text.toString(),
+                                      passtext.text.toString())
+                                  ? Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => Home(
+                                          email: 'fake@email.com',
+                                        ),
+                                      ))
+                                  : ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBarForLoginError);
+                            };
                     },
                     child: const Text(
                       'LOG IN',
@@ -174,14 +142,14 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     SocialButton(
-                      text: 'Facebook',
-                      col: 0xff1a4f8b,
+                      buttonName: 'Facebook',
+                      buttonColorCodeInteger: 0xff1a4f8b,
                     ),
                     SocialButton(
-                      text: 'Google',
-                      col: 0xfff14436,
+                      buttonName: 'Google',
+                      buttonColorCodeInteger: 0xfff14436,
                     ),
                   ],
                 )
@@ -192,16 +160,19 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Container textField(
-    TextEditingController txt,
-    String example,
-    IconData icon,
-    validateEmail,
+    TextEditingController textController,
+    String hintString,
+    IconData iconForPrefixIcon,
+    Function(String) validateEmail,
   ) {
     return Container(
       color: const Color(0xff1f1f1f1),
       child: TextFormField(
-        controller: txt,
-        validator: validateEmail,
+        controller: textController,
+        validator: (v) {
+          validateEmail(v!);
+          return null;
+        },
         style: const TextStyle(color: Color(0xff6085ae)),
         decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
@@ -214,46 +185,16 @@ class _LoginPageState extends State<LoginPage> {
               borderRadius: BorderRadius.circular(10),
               borderSide: const BorderSide(color: Color(0xff6085ae), width: 3),
             ),
-            hintText: example,
+            hintText: hintString,
 
             // hintStyle: hintStylecolor:Color(0xff1406c9e),
             prefixIcon: Icon(
-              icon,
+              iconForPrefixIcon,
               color: const Color(0xff6085ae),
             ),
             // fillColor: Colors.yellow,
             hoverColor: Colors.black),
       ),
-    );
-  }
-}
-
-class SocialButton extends StatelessWidget {
-  final String text;
-  final int col;
-  const SocialButton({
-    required this.text,
-    required this.col,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 38,
-      width: 178,
-      decoration: BoxDecoration(
-        color: Color(col),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(5),
-        ),
-      ),
-      child: TextButton(
-          onPressed: () {},
-          child: Text(
-            text,
-            style: const TextStyle(color: Color(0xff1b3c4d8), fontSize: 18),
-          )),
     );
   }
 }
@@ -269,49 +210,27 @@ bool checkloging(String tx1, String tx2) {
   return false;
 }
 
-// class InputField extends StatelessWidget {
-//   // final String lebel;
-//   final TextEditingController txt;
-//   final String example;
-//   final IconData icon;
+String validateEmail(String value) {
+  if (value.isEmpty) {
+    return "Required";
+  } else {
+    bool emailValid = RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(value);
+    if (!emailValid) {
+      return "Please Enter Correct Email";
+    } else {
+      return '';
+    }
+  }
+}
 
-//   const InputField({
-//     required this.txt,
-//     required this.example,
-//     required this.icon,
-//     // required this.lebel,
-//     Key? key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       color: const Color(0xff1f1f1f1),
-//       child: TextField(
-//         controller: txt,
-//         style: const TextStyle(color: Color(0xff6085ae)),
-//         decoration: InputDecoration(
-//             enabledBorder: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(10),
-//               borderSide: const BorderSide(
-//                   color: Color.fromARGB(255, 255, 255, 255), width: 3),
-//             ),
-//             // labelText: lebel,
-//             focusedBorder: OutlineInputBorder(
-//               borderRadius: BorderRadius.circular(10),
-//               borderSide: const BorderSide(color: Color(0xff6085ae), width: 3),
-//             ),
-//             hintText: example,
-
-//             // hintStyle: hintStylecolor:Color(0xff1406c9e),
-//             prefixIcon: Icon(
-//               icon,
-//               color: const Color(0xff6085ae),
-//             ),
-//             // fillColor: Colors.yellow,
-//             hoverColor: Colors.black),
-//       ),
-//     );
-//   }
-// }
-
+String validatePass(value) {
+  if (value.length == 0) {
+    return "Required";
+  } else if (value.length < 8) {
+    return "Password Should Be Minimum 8 Character";
+  } else {
+    return "";
+  }
+}

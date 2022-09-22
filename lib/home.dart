@@ -1,6 +1,5 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:asses1/forgetpage.dart';
 import 'package:asses1/loginpage.dart';
 import 'package:asses1/view.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +32,7 @@ class Home extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => LoginPage(),
+                    builder: (_) => const LoginPage(),
                   ));
             },
             icon: const Icon(
@@ -41,19 +40,6 @@ class Home extends StatelessWidget {
               color: Colors.black,
             ),
           ),
-          // IconButton(
-          //   onPressed: () {
-          //     Navigator.push(
-          //         context,
-          //         MaterialPageRoute(
-          //           builder: (_) => const ForgetPage(),
-          //         ));
-          //   },
-          //   icon: const Icon(
-          //     Icons.login,
-          //     color: Colors.black,
-          //   ),
-          // )
         ],
         // actions: [Text('data')],
       ),

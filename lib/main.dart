@@ -1,4 +1,3 @@
-import 'package:asses1/api.dart';
 import 'package:asses1/loginpage.dart';
 import 'package:flutter/material.dart';
 
@@ -29,23 +28,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // ignore: unused_field
-  int _counter = 0;
-  final Api api = Api();
-  void _incrementCounter() {}
-  @override
-  void initState() {
-    super.initState();
-    callApi();
-  }
-
-  callApi() async {
-    await api.getData();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: LoginPage(),
     );
   }
