@@ -9,7 +9,8 @@ import 'api.dart';
 class Home extends StatelessWidget {
   // ignore: unnecessary_new
   Api a = new Api();
-  Home({super.key});
+  final String email;
+  Home({required this.email, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +19,13 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Home', style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.white,
+
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => const LoginPage(),
-                  ));
-            },
-            icon: const Icon(
-              Icons.login,
-              color: Colors.black,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Text(
+              email,
+              style: const TextStyle(color: Colors.black, fontSize: 18),
             ),
           ),
           IconButton(
@@ -37,14 +33,27 @@ class Home extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => const ForgetPage(),
+                    builder: (_) => LoginPage(),
                   ));
             },
             icon: const Icon(
               Icons.login,
               color: Colors.black,
             ),
-          )
+          ),
+          // IconButton(
+          //   onPressed: () {
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (_) => const ForgetPage(),
+          //         ));
+          //   },
+          //   icon: const Icon(
+          //     Icons.login,
+          //     color: Colors.black,
+          //   ),
+          // )
         ],
         // actions: [Text('data')],
       ),
