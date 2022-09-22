@@ -19,6 +19,42 @@ class _LoginPageState extends State<LoginPage> {
   final SnackBar snackBarForLoginError =
       const SnackBar(content: Text('You Entered wrong Email Or Password'));
   TextEditingController passtext = TextEditingController();
+  bool checkloging(String tx1, String tx2) {
+    if (tx1 == "fake@email.com") {
+      if (tx2 == '12345678') {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    return false;
+  }
+
+  String validateEmail(String value) {
+    if (value.isEmpty) {
+      return "Required";
+    } else {
+      bool emailValid = RegExp(
+              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+          .hasMatch(value);
+      if (!emailValid) {
+        return "Please Enter Correct Email";
+      } else {
+        return '';
+      }
+    }
+  }
+
+  String validatePass(value) {
+    if (value.length == 0) {
+      return "Required";
+    } else if (value.length < 8) {
+      return "Password Should Be Minimum 8 Character";
+    } else {
+      return "";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,8 +100,8 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(210, 0, 0, 0),
+                Container(
+                  alignment: Alignment.centerRight,
                   child: TextButton(
                     onPressed: (() {
                       Navigator.push(
@@ -92,21 +128,6 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   child: TextButton(
-                    // onPressed: !formkey.currentState!.validate()
-                    //     ? null
-                    //     : () {
-                    //         checkloging(emailtext.text.toString(),
-                    //                 passtext.text.toString())
-                    //             ? Navigator.push(
-                    //                 context,
-                    //                 MaterialPageRoute(
-                    //                   builder: (_) => Home(
-                    //                     email: 'fake@email.com',
-                    //                   ),
-                    //                 ))
-                    //             : ScaffoldMessenger.of(context)
-                    //                 .showSnackBar(snackBarForLoginError);
-                    //       },
                     onPressed: () {
                       !formkey.currentState!.validate()
                           ? null
@@ -170,8 +191,7 @@ class _LoginPageState extends State<LoginPage> {
       child: TextFormField(
         controller: textController,
         validator: (v) {
-          validateEmail(v!);
-          return null;
+          return validateEmail(v!);
         },
         style: const TextStyle(color: Color(0xff6085ae)),
         decoration: InputDecoration(
@@ -196,41 +216,5 @@ class _LoginPageState extends State<LoginPage> {
             hoverColor: Colors.black),
       ),
     );
-  }
-}
-
-bool checkloging(String tx1, String tx2) {
-  if (tx1 == "fake@email.com") {
-    if (tx2 == '12345678') {
-      return true;
-    } else {
-      return false;
-    }
-  }
-  return false;
-}
-
-String validateEmail(String value) {
-  if (value.isEmpty) {
-    return "Required";
-  } else {
-    bool emailValid = RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(value);
-    if (!emailValid) {
-      return "Please Enter Correct Email";
-    } else {
-      return '';
-    }
-  }
-}
-
-String validatePass(value) {
-  if (value.length == 0) {
-    return "Required";
-  } else if (value.length < 8) {
-    return "Password Should Be Minimum 8 Character";
-  } else {
-    return "";
   }
 }
